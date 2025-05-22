@@ -27,7 +27,21 @@ export const FAQSection: React.FC = () => {
     },
     {
       question: "What documentation do I need to apply?",
-      answer: "You'll need your business registration documents, PAN card, bank statements for the last 6 months, and proof of business address."
+      answer: (
+        <div className="space-y-2">
+          <p>You'll need to provide the following documents:</p>
+          <ul className="list-disc pl-5 space-y-1">
+            <li>PAN card</li>
+            <li>Aadhar card</li>
+            <li>Latest 6 months bank account statement as on date</li>
+            <li>Latest 6 months consolidator's bank account statement</li>
+            <li>Business proof - either GST number or Udyog Aadhar Certificate</li>
+            <li>Company PAN card (not applicable for proprietor business)</li>
+            <li>Additional Address Proof: Latest or previous month utility bill (electricity, gas or water bill) or rent agreement along with aadhar card</li>
+            <li>Latest income tax return (ITR)</li>
+          </ul>
+        </div>
+      )
     },
     {
       question: "Can I apply for a business loan if I have an existing loan?",
