@@ -68,7 +68,7 @@ export const RewardsSection: React.FC = () => {
                 </div>
               </div>
               
-              <div className="w-32 h-32 border-4 border-mihuru-dark rounded-full flex items-center justify-center bg-white/30 animate-pulse-glow">
+              <div className="w-32 h-32 border-4 border-mihuru-dark rounded-full flex items-center justify-center bg-white/30">
                 <div className="text-center">
                   <div className="font-serif font-bold text-xl">₹1 LAKH</div>
                   <div className="text-sm font-medium">Prize Value</div>

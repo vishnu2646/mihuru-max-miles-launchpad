@@ -27,7 +27,7 @@ export const RewardCard: React.FC<RewardCardProps> = ({
       className={cn(
         "rounded-xl p-6 transition-all duration-300 transform hover:scale-105",
         highlight 
-          ? "bg-gradient-to-br from-mihuru-gold to-mihuru-gold-light text-mihuru-dark border-2 border-mihuru-gold animate-pulse-glow" 
+          ? "bg-gradient-to-br from-mihuru-gold to-mihuru-gold-light text-mihuru-dark border-2 border-mihuru-gold" 
           : "bg-white/10 backdrop-blur-sm border border-white/20",
         className
       )}
