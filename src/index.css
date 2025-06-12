@@ -99,25 +99,25 @@
   }
 
   body {
-    @apply bg-mihuru-dark text-foreground font-sans;
+    @apply bg-mihuru-dark text-mihuru-text font-sans;
   }
 }
 
 .glowing-text {
-  text-shadow: 0 0 10px rgba(245, 217, 2, 0.7),
-               0 0 20px rgba(245, 217, 2, 0.5),
-               0 0 30px rgba(245, 217, 2, 0.3);
+  text-shadow: 0 0 10px rgba(255, 204, 3, 0.7),
+               0 0 20px rgba(255, 204, 3, 0.5),
+               0 0 30px rgba(255, 204, 3, 0.3);
 }
 
 .shimmer-bg {
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  background: linear-gradient(90deg, transparent, rgba(234, 246, 252, 0.2), transparent);
   background-size: 1000px 100%;
   animation: shimmer 2s infinite linear;
 }
 
 .confetti-bg {
-  background-image: radial-gradient(circle, rgba(48, 194, 224, 0.2) 2px, transparent 2px),
-                    radial-gradient(circle, rgba(245, 217, 2, 0.2) 2px, transparent 2px);
+  background-image: radial-gradient(circle, rgba(45, 165, 198, 0.2) 2px, transparent 2px),
+                    radial-gradient(circle, rgba(255, 204, 3, 0.2) 2px, transparent 2px);
   background-size: 30px 30px;
   background-position: 0 0, 15px 15px;
 }
@@ -136,11 +136,11 @@
   height: 200%;
   background: linear-gradient(
     to bottom right,
-    rgba(255, 255, 255, 0) 0%,
-    rgba(255, 255, 255, 0) 40%,
-    rgba(255, 255, 255, 0.6) 50%,
-    rgba(255, 255, 255, 0) 60%,
-    rgba(255, 255, 255, 0) 100%
+    rgba(234, 246, 252, 0) 0%,
+    rgba(234, 246, 252, 0) 40%,
+    rgba(234, 246, 252, 0.6) 50%,
+    rgba(234, 246, 252, 0) 60%,
+    rgba(234, 246, 252, 0) 100%
   );
   transform: rotate(45deg);
   animation: shimmer 5s infinite;

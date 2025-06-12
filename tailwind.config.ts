@@ -63,13 +63,15 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
-				// Custom colors for the campaign
+				// Custom colors for the campaign with your specified color codes
 				mihuru: {
-					gold: '#f5d902',
-					'gold-light': '#ffe652',
-					blue: '#30c2e0',
-					'blue-light': '#7ad4e8',
-					dark: '#0a1528',
+					gold: '#ffcc03',
+					'gold-light': '#ffcc03',
+					blue: '#2da5c6',
+					'blue-light': '#2da5c6',
+					dark: '#002d3a',
+					green: '#03646a',
+					text: '#eaf6fc',
 					orange: '#ff9046'
 				}
 			},
@@ -118,11 +120,11 @@ export default {
 				'pulse-glow': {
 					'0%, 100%': {
 						opacity: '1',
-						boxShadow: '0 0 20px 3px rgba(245, 217, 2, 0.7)'
+						boxShadow: '0 0 20px 3px rgba(255, 204, 3, 0.7)'
 					},
 					'50%': {
 						opacity: '0.7',
-						boxShadow: '0 0 40px 8px rgba(245, 217, 2, 0.9)'
+						boxShadow: '0 0 40px 8px rgba(255, 204, 3, 0.9)'
 					}
 				}
 			},
