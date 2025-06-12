@@ -27,15 +27,6 @@ export const BenefitsSection: React.FC = () => {
               </div>
             ))}
           </div>
-          
-          <div className="mt-8 p-4 bg-white/10 rounded-lg border border-white/20">
-            <p className="text-mihuru-text/90 text-center">
-              "Mihuru has been instrumental in helping me expand my travel agency. The process was simple, and the rewards program was a fantastic bonus!"
-            </p>
-            <p className="text-mihuru-gold text-center mt-2 font-medium">
-              — Rajesh Kumar, New Delhi Travel Services
-            </p>
-          </div>
         </div>
       </div>
     </div>

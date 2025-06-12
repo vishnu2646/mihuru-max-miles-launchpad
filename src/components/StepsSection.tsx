@@ -5,21 +5,21 @@ export const StepsSection: React.FC = () => {
   const steps = [
     {
       number: "01",
-      title: "Complete Application",
-      description: "Fill out our simple form to start your business loan application process",
-      reward: "Receive Swiggy or PVR vouchers worth Rs. 750"
+      title: "Application Approved",
+      description: "Once your business loan application is approved, you're eligible for rewards",
+      reward: "Receive Amazon vouchers worth Rs. 750"
     },
     {
       number: "02",
       title: "Loan Disbursement",
       description: "After approval, funds will be transferred directly to your business account",
-      reward: "Get premium JBL or Boat earbuds worth Rs. 3,000"
+      reward: "Get Mihuru goodies worth Rs. 3,000"
     },
     {
       number: "03",
       title: "Repeat Business",
       description: "Return for another business loan when you need additional financing",
-      reward: "Earn Amazon vouchers or speakers worth Rs. 7,500"
+      reward: "Earn smartwatch or speakers worth Rs. 5,000"
     },
     {
       number: "04",

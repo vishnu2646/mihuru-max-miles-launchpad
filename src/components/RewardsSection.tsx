@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { RewardCard } from './RewardCard';
 import { RewardPopup } from './RewardPopup';
-import { Headphones, Gift, Award, Speaker, Star, CircleDollarSign } from 'lucide-react';
+import { Gift, Award, Speaker, Star, CircleDollarSign, Watch } from 'lucide-react';
 
 export const RewardsSection: React.FC = () => {
   const [currentPopup, setCurrentPopup] = useState<number | null>(null);
@@ -10,25 +10,25 @@ export const RewardsSection: React.FC = () => {
 
   const rewards = [
     {
-      title: "Complete Application",
-      reward: "Swiggy or PVR Vouchers",
+      title: "Application Approved",
+      reward: "Amazon Vouchers",
       value: "Rs. 750",
       icon: <Gift className="h-6 w-6" />,
-      description: "Simply complete your business loan application to receive food or movie vouchers"
+      description: "Get Amazon vouchers when your business loan application is approved"
     },
     {
       title: "Loan Disbursement", 
-      reward: "JBL or Boat Earbuds",
+      reward: "Mihuru Goodies",
       value: "Rs. 3,000",
-      icon: <Headphones className="h-6 w-6" />,
-      description: "Get premium earbuds when your loan application is successfully disbursed"
+      icon: <Gift className="h-6 w-6" />,
+      description: "Receive exclusive Mihuru goodies when your loan application is successfully disbursed"
     },
     {
       title: "Repeat Business",
-      reward: "Amazon Vouchers or Speakers", 
-      value: "Rs. 7,500",
-      icon: <Speaker className="h-6 w-6" />,
-      description: "Earn higher rewards when you return for another business loan"
+      reward: "Smartwatch or Speakers", 
+      value: "Rs. 5,000",
+      icon: <Watch className="h-6 w-6" />,
+      description: "Earn premium rewards when you return for another business loan"
     }
   ];
 

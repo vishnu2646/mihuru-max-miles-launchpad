@@ -46,14 +46,14 @@ export const HeroSection: React.FC = () => {
               onClick={scrollToForm}
               className="bg-mihuru-gold hover:bg-mihuru-gold-light text-mihuru-dark text-lg font-bold px-8 py-6 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 animate-pulse"
             >
-              Apply Now For Rewards
+              Check Your Eligibility
             </Button>
             <Button 
               variant="outline"
               onClick={scrollToForm}
               className="bg-transparent text-white border-white hover:bg-white/10 text-lg px-8 py-6 rounded-full"
             >
-              See All Rewards
+              TAAI Association
             </Button>
           </div>
         </div>
