@@ -16,34 +16,7 @@ export const RewardsSection: React.FC = () => {
           </p>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-          <RewardCard
-            title="Complete Application"
-            reward="Swiggy or PVR Vouchers"
-            value="Rs. 750"
-            icon={<Gift className="h-6 w-6" />}
-            description="Simply complete your business loan application to receive food or movie vouchers"
-          />
-          
-          <RewardCard
-            title="Loan Disbursement"
-            reward="JBL or Boat Earbuds"
-            value="Rs. 3,000"
-            icon={<Headphones className="h-6 w-6" />}
-            description="Get premium earbuds when your loan application is successfully disbursed"
-            highlight={true}
-          />
-          
-          <RewardCard
-            title="Repeat Business"
-            reward="Amazon Vouchers or Speakers"
-            value="Rs. 7,500"
-            icon={<Speaker className="h-6 w-6" />}
-            description="Earn higher rewards when you return for another business loan"
-          />
-        </div>
-        
-        <div className="mt-16 max-w-3xl mx-auto">
+        <div className="max-w-3xl mx-auto mb-16">
           <div className="bg-gradient-to-r from-mihuru-gold/80 to-mihuru-gold-light/80 rounded-xl p-6 md:p-8 text-mihuru-dark relative overflow-hidden ticket-shine">
             <div className="absolute -top-10 -right-10 bg-white/30 w-40 h-40 rounded-full blur-3xl"></div>
             
@@ -76,6 +49,33 @@ export const RewardsSection: React.FC = () => {
               </div>
             </div>
           </div>
+        </div>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+          <RewardCard
+            title="Complete Application"
+            reward="Swiggy or PVR Vouchers"
+            value="Rs. 750"
+            icon={<Gift className="h-6 w-6" />}
+            description="Simply complete your business loan application to receive food or movie vouchers"
+          />
+          
+          <RewardCard
+            title="Loan Disbursement"
+            reward="JBL or Boat Earbuds"
+            value="Rs. 3,000"
+            icon={<Headphones className="h-6 w-6" />}
+            description="Get premium earbuds when your loan application is successfully disbursed"
+            highlight={true}
+          />
+          
+          <RewardCard
+            title="Repeat Business"
+            reward="Amazon Vouchers or Speakers"
+            value="Rs. 7,500"
+            icon={<Speaker className="h-6 w-6" />}
+            description="Earn higher rewards when you return for another business loan"
+          />
         </div>
       </div>
     </div>
