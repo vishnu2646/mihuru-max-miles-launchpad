@@ -1,9 +1,57 @@
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { RewardCard } from './RewardCard';
+import { RewardPopup } from './RewardPopup';
 import { Headphones, Gift, Award, Speaker, Star, CircleDollarSign } from 'lucide-react';
 
 export const RewardsSection: React.FC = () => {
+  const [currentPopup, setCurrentPopup] = useState<number | null>(null);
+  const [hasShownPopups, setHasShownPopups] = useState(false);
+
+  const rewards = [
+    {
+      title: "Complete Application",
+      reward: "Swiggy or PVR Vouchers",
+      value: "Rs. 750",
+      icon: <Gift className="h-6 w-6" />,
+      description: "Simply complete your business loan application to receive food or movie vouchers"
+    },
+    {
+      title: "Loan Disbursement", 
+      reward: "JBL or Boat Earbuds",
+      value: "Rs. 3,000",
+      icon: <Headphones className="h-6 w-6" />,
+      description: "Get premium earbuds when your loan application is successfully disbursed"
+    },
+    {
+      title: "Repeat Business",
+      reward: "Amazon Vouchers or Speakers", 
+      value: "Rs. 7,500",
+      icon: <Speaker className="h-6 w-6" />,
+      description: "Earn higher rewards when you return for another business loan"
+    }
+  ];
+
+  useEffect(() => {
+    if (!hasShownPopups) {
+      const timer1 = setTimeout(() => setCurrentPopup(0), 2000);
+      const timer2 = setTimeout(() => setCurrentPopup(1), 8000);
+      const timer3 = setTimeout(() => setCurrentPopup(2), 14000);
+      
+      setHasShownPopups(true);
+      
+      return () => {
+        clearTimeout(timer1);
+        clearTimeout(timer2);
+        clearTimeout(timer3);
+      };
+    }
+  }, [hasShownPopups]);
+
+  const closePopup = () => {
+    setCurrentPopup(null);
+  };
+
   return (
     <div className="py-16 px-4">
       <div className="container mx-auto">
@@ -52,31 +100,32 @@ export const RewardsSection: React.FC = () => {
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-          <RewardCard
-            title="Complete Application"
-            reward="Swiggy or PVR Vouchers"
-            value="Rs. 750"
-            icon={<Gift className="h-6 w-6" />}
-            description="Simply complete your business loan application to receive food or movie vouchers"
-          />
-          
-          <RewardCard
-            title="Loan Disbursement"
-            reward="JBL or Boat Earbuds"
-            value="Rs. 3,000"
-            icon={<Headphones className="h-6 w-6" />}
-            description="Get premium earbuds when your loan application is successfully disbursed"
-            highlight={true}
-          />
-          
-          <RewardCard
-            title="Repeat Business"
-            reward="Amazon Vouchers or Speakers"
-            value="Rs. 7,500"
-            icon={<Speaker className="h-6 w-6" />}
-            description="Earn higher rewards when you return for another business loan"
-          />
+          {rewards.map((reward, index) => (
+            <RewardCard
+              key={index}
+              title={reward.title}
+              reward={reward.reward}
+              value={reward.value}
+              icon={reward.icon}
+              description={reward.description}
+              highlight={index === 1}
+            />
+          ))}
         </div>
+
+        {/* Reward Popups */}
+        {rewards.map((reward, index) => (
+          <RewardPopup
+            key={index}
+            isOpen={currentPopup === index}
+            onClose={closePopup}
+            title={reward.title}
+            reward={reward.reward}
+            value={reward.value}
+            description={reward.description}
+            icon={reward.icon}
+          />
+        ))}
       </div>
     </div>
   );
