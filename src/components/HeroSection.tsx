@@ -33,8 +33,8 @@ export const HeroSection: React.FC = () => {
 
                     <div className="max-w-2xl mx-auto mb-10">
                         <p className="text-white text-xl mb-4">
-                            Exclusive Business Loans for Travel Agents with
-                            <span className="font-bold text-mihuru-gold"> Incredible Rewards</span>
+                            Grow your Biz with Mihuru credit line. Introducing
+                            <span className="font-bold text-mihuru-gold"> Mihuru Max Miles! An exclusive rewards program.</span>
                         </p>
                         <p className="text-white/80">
                             Fast approval, minimal documentation, and rewards worth up to ₹1 Lakh!
@@ -49,13 +49,13 @@ export const HeroSection: React.FC = () => {
                         >
                             Check Your Eligibility
                         </Button>
-                        {/* <Button
+                        <Button
                             variant="outline"
                             onClick={scrollToForm}
                             className="bg-transparent text-white border-white hover:bg-white/10 text-lg px-8 py-6 rounded-full"
                         >
                             TAAI Association
-                        </Button> */}
+                        </Button>
                     </div>
                 </div>
             </div>
