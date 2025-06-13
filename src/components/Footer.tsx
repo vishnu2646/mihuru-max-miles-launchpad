@@ -2,6 +2,9 @@
 import React from 'react';
 
 export const Footer: React.FC = () => {
+
+    const termaConditionUrl = import.meta.env.VITE_FRONTEND_URL;
+
     return (
         <footer className="bg-mihuru-dark/90 border-t border-white/10 py-10 px-4">
             <div className="container mx-auto">
@@ -43,7 +46,7 @@ export const Footer: React.FC = () => {
                         <p>© 2025 iTraveleo Pvt.Ltd. All rights reserved.</p>
                         <p className="mt-1">
                             <a href="https://www.mihuru.com/privacy/privacy" target="_blank" className="hover:text-mihuru-gold">Privacy Policy</a> |
-                            <a href="https://www.mihuru.com/privacy/terms" target='_blank' className="hover:text-mihuru-gold ml-2">Terms of Service</a>
+                            <a href={`${termaConditionUrl}/terms-conditions`} target='_blank' className="hover:text-mihuru-gold ml-2">Terms of Service</a>
                         </p>
                     </div>
                 </div>

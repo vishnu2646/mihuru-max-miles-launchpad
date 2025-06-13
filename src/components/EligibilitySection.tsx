@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import React, { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
+import axios from "axios"; 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -14,17 +15,29 @@ type FormValues = z.infer<typeof loanApplicationSchema>;
 
 interface EligibilityState {
     start: boolean;
+    otp: boolean;
     eligible: boolean;
     notEligible: boolean;
 }
 
 export const EligibilitySection: React.FC = () => {
+    const apiUrl = import.meta.env.VITE_API_URL;
+
+    const termaConditionUrl = import.meta.env.VITE_FRONTEND_URL;
+
     const [isChecking, setIsChecking] = useState(false);
+
+    const [validityCheckData, setValidityCheckData] = useState<FormValues>({});
+
+    const [otp, setOtp] = useState<string>('');
+
     const [isEligible, setIsEligible] = useState<EligibilityState>({
         start: true,
+        otp: false,
         eligible: false,
         notEligible: false
     });
+
     const { toast } = useToast();
 
     const {
@@ -37,18 +50,103 @@ export const EligibilitySection: React.FC = () => {
         resolver: zodResolver(loanApplicationSchema),
     });
 
-    const onSubmit = (data: FormValues) => {
-        console.log("Form Data Submitted:", data);
+    const onSubmit = async (data: FormValues) => {
+        setValidityCheckData(data);
+
+        setIsEligible({
+            start: false,
+            otp: true,
+            eligible: false,
+            notEligible: false
+        });
+
+        const formData = {
+            MobileNo: data.contactNumber,
+            Email: data.email,
+            AgentFirstName: data.firstName,
+            AgentLastName: data.lastName,
+            AgencyName: data.travelAgencyName,
+            LoanAmount: data.loanAmount
+        }
+
+
+        try {
+            const response = await axios.post(`${apiUrl}businessloan/pre-eligibility/sms`, formData);
+            if(response.data) {
+                toast({
+                    title: response.data.data,
+                    variant: "default",
+                });
+            }
+        } catch (error) {
+            console.log(error);
+            toast({
+                title: "Something went wrong. Please try again later.",
+                variant: "destructive",
+            });
+        }
+    };
+
+    const handleOtpChange = (e) => {
+        const otpValue = e.target.value;
+
+        if (otpValue.toString().length === 4) {
+            setOtp(otpValue);
+        }
+    }
+
+    const handleSubmitOtp = async (e) => {
+        e.preventDefault();
+
         setIsChecking(true);
-        setTimeout(() => {
+
+        const otpData = {
+            mobileNo: validityCheckData.contactNumber,
+            otp: otp
+        }
+
+        try {
+            const response = await axios.post(`${apiUrl}businessloan/pre-eligibility/check`, otpData);
+            if(response) {
+                setIsChecking(false);
+                console.log(response);
+                if(response.data.data === "Approved") {
+                    setIsEligible({
+                        start: false,
+                        otp: false,
+                        eligible: true,
+                        notEligible: false,
+                    });
+                    toast({
+                        title: 'Eligibility Confirmed!',
+                        description: "Congratulations! You are eligible for our business loan program.",
+                        variant: "default",
+                    });
+                } else {
+                    setIsEligible({
+                        start: false,
+                        otp: false,
+                        eligible: false,
+                        notEligible: true,
+                    });
+                    toast({
+                        title: "Eligibility Check Failed",
+                        description: "Unfortunately, you do not meet the eligibility criteria for our business loan program at this time.",
+                        variant: "destructive",
+                    });
+                }
+            }
+        } catch (error) {
+            console.log(error);
             setIsChecking(false);
             setIsEligible({
                 start: false,
-                eligible: true,
-                notEligible: false
+                otp: false,
+                eligible: false,
+                notEligible: true,
             });
-        }, 2000);
-    };
+        }
+    }
 
     useEffect(() => {
         if (isEligible.eligible) {
@@ -163,7 +261,7 @@ export const EligibilitySection: React.FC = () => {
                             )}
                         />
                         <label htmlFor="termsAccepted" className="text-white text-sm">
-                            I agree to the <a href="https://www.mihuru.com/privacy/terms" target='_blank' className='text-mihuru-gold'>terms and conditions</a>
+                            I agree to the <a href={`${termaConditionUrl}/terms-conditions`} target='_blank' className='text-mihuru-gold'>terms and conditions</a>
                         </label>
                     </div>
                     {errors.termsAccepted && <p className="text-red-500 text-sm">{errors.termsAccepted.message}</p>}
@@ -176,6 +274,23 @@ export const EligibilitySection: React.FC = () => {
                         {isChecking ? "Checking Eligibility..." : "Check My Eligibility"}
                     </Button>
                 </form>
+            ) : isEligible.otp ? (
+                <div>
+                    <h1 className='text-xl text-center mb-4'>OTP Verification.</h1>
+                    <Input
+                        id="loanAmount"
+                        placeholder="Enter amount in Rs."
+                        onChange={handleOtpChange}
+                        className="bg-white/20 border-white/30 text-white placeholder:text-white/50"
+                    />
+                    <Button
+                        type="submit"
+                        className="w-full bg-mihuru-gold hover:bg-mihuru-gold-light text-mihuru-dark font-bold py-3 text-lg transition-all duration-300 mt-6"
+                        onClick={handleSubmitOtp}
+                    >
+                        Submit
+                    </Button>
+                </div>
             ) : isEligible.eligible ? (
                 <div className="text-center space-y-6">
                     <div className="bg-green-500/20 border border-green-500/30 rounded-lg p-6">
@@ -205,7 +320,7 @@ export const EligibilitySection: React.FC = () => {
                     </div>
 
                     <Button
-                        onClick={() => setIsEligible({ start: true, eligible: false, notEligible: false })}
+                        onClick={() => setIsEligible({ start: true, otp: false, eligible: false, notEligible: false })}
                         className="w-full bg-mihuru-gold hover:bg-mihuru-gold-light text-mihuru-dark font-bold py-3 text-lg transition-all duration-300"
                     >
                         Request for a Callback
