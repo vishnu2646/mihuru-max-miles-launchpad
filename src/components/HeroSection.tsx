@@ -11,10 +11,10 @@ export const HeroSection: React.FC = () => {
     };
 
     return (
-        <div className="relative min-h-[60vh] flex items-center justify-center px-4 overflow-hidden">
+        <div className="relative min-h-[60vh] p-0 flex items-center justify-center overflow-hidden">
             {/* Background elements */}
             <div className="absolute inset-0 bg-mihuru-dark bg-opacity-80 z-0"></div>
-            <div className="absolute inset-0 bg-[url('/lovable-uploads/e00e7ea4-c10f-4b2b-a67e-53b5a6fe7553.png')] bg-cover bg-center opacity-30 z-0"></div>
+            <div className="absolute inset-0 bg-[url('https://itraveleoblogdiag865.blob.core.windows.net/websiteimages/assets/images/marketing-bg.png')] bg-cover bg-center opacity-30 z-0"></div>
 
             {/* Animated confetti/particle effects */}
             <div className="absolute inset-0 confetti-bg z-0"></div>
@@ -33,8 +33,9 @@ export const HeroSection: React.FC = () => {
 
                     <div className="max-w-2xl mx-auto mb-10">
                         <p className="text-white text-xl mb-4">
-                            Grow your Biz with Mihuru credit line. Introducing
-                            <span className="font-bold text-mihuru-gold"> Mihuru Max Miles! An exclusive rewards program.</span>
+                            Grow Your Biz with Mihuru Credit Line. <br /> Introducing <br />
+                            <span className="font-bold text-mihuru-gold"> Mihuru Max Miles!</span>
+                            <br /> An Exclusive Rewards Program.
                         </p>
                         <p className="text-white/80">
                             Fast approval, minimal documentation, and rewards worth up to ₹1 Lakh!

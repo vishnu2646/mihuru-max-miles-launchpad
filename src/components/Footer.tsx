@@ -6,10 +6,10 @@ export const Footer: React.FC = () => {
         <footer className="bg-mihuru-dark/90 border-t border-white/10 py-10 px-4">
             <div className="container mx-auto">
                 <div className="text-center mb-6">
-                    <div className="max-w-24 max-h-24 mx-auto flex mb-4">
-                        <img src="https://ik.imagekit.io/Mihuru/campaign/logo-light-mode.png" className='w-full h-full' alt="logo" />
+                    <div className="max-w-[15rem] max-h-28 mx-auto flex">
+                        <img src="https://itraveleoblogdiag865.blob.core.windows.net/websiteimages/assets/images/mihuru-logo-light.png" className='w-full h-full' alt="logo" />
                     </div>
-                    <p className="text-white/60 text-sm mt-1">Financing Freedom. Dreams. You.</p>
+                    <p className="text-white/60 text-sm">Financing Freedom. Dreams. You.</p>
                 </div>
 
                 <div className="border-t border-white/10 pt-6 mt-6">

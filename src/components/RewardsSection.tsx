@@ -74,17 +74,16 @@ export const RewardsSection: React.FC = () => {
                                     <Award className="h-8 w-8" />
                                     <h3 className="font-serif font-bold text-2xl">Grand Lucky Draw</h3>
                                 </div>
-                                <p className="text-mihuru-dark/80 mb-4">
-                                    Stand a chance to enter into an exclusive lucky draw.
+                                <p className="text-mihuru-dark/80 mb-4 pb-[2px]">
                                 </p>
                                 <div className="space-y-3">
                                     <div className="flex items-center gap-2">
                                         <Star className="h-5 w-5 text-mihuru-dark" />
-                                        <span className="font-medium">2 lucky winners</span>
+                                        <span className="font-medium">2 Privilege Winners</span>
                                     </div>
                                     <div className="flex items-center gap-2">
                                         <CircleDollarSign className="h-5 w-5 text-mihuru-dark" />
-                                        <span className="font-bold">Samsung LED TV's or Tansiq GV Rewards worth of ₹1,00,000</span>
+                                        <span className="font-bold text-sm">55 inch LED TVs or Tanishq Gold voucher Rewards worth of ₹1,00,000</span>
                                     </div>
                                 </div>
                             </div>

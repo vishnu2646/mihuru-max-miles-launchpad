@@ -25,7 +25,7 @@ export const StepsSection: React.FC = () => {
             number: "04",
             title: "Lucky Draw Entry",
             description: "Second loan applicants are entered into our exclusive lucky draw",
-            reward: "Chance to win Samsung LED TV's or Tansiq GV rewards worth ₹ 1,00,000"
+            reward: "Chance to win Samsung LED TV or Tanishq GV rewards worth ₹ 1,00,000"
         }
     ];
 

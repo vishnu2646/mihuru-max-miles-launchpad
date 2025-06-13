@@ -17,9 +17,8 @@ export const BenefitsSection: React.FC = () => {
             <div className="container mx-auto">
                 <div className="max-w-4xl mx-auto bg-gradient-to-br from-mihuru-blue/20 to-mihuru-blue/5 backdrop-blur-sm rounded-xl p-8 border border-mihuru-blue/30">
                     <h2 className="text-3xl font-serif font-bold mb-8 text-mihuru-text text-center">
-            Why Choose <span className="text-mihuru-gold">Mihuru</span> Business Loans?
+                        Why Choose <span className="text-mihuru-gold">Mihuru</span> Business Loans?
                     </h2>
-          
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         {benefits.map((benefit, index) => (
                             <div key={index} className="flex items-start space-x-3">

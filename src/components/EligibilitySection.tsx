@@ -1,48 +1,70 @@
-
 import { z } from 'zod';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { Controller, useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from '@/hooks/use-toast';
-import { CheckCircle, ExternalLink } from 'lucide-react';
+import { ArrowLeft, CheckCircle, ExternalLink } from 'lucide-react';
 import { Checkbox } from './ui/checkbox';
 import { loanApplicationSchema } from '../../schema';
 
 type FormValues = z.infer<typeof loanApplicationSchema>;
 
+interface EligibilityState {
+    start: boolean;
+    eligible: boolean;
+    notEligible: boolean;
+}
+
 export const EligibilitySection: React.FC = () => {
-    const [formData, setFormData] = useState({
-        name: '',
-        email: '',
-        phone: '',
-        agencyName: '',
-        loanAmount: ''
-    });
     const [isChecking, setIsChecking] = useState(false);
-    const [isEligible, setIsEligible] = useState<boolean | null>(null);
+    const [isEligible, setIsEligible] = useState<EligibilityState>({
+        start: true,
+        eligible: false,
+        notEligible: false
+    });
     const { toast } = useToast();
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = e.target;
-        setFormData(prev => ({ ...prev, [name]: value }));
-    };
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+        watch,
+        control
+    } = useForm<FormValues>({
+        resolver: zodResolver(loanApplicationSchema),
+    });
 
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
+    const onSubmit = (data: FormValues) => {
+        console.log("Form Data Submitted:", data);
         setIsChecking(true);
-
-        // Simulate eligibility check
         setTimeout(() => {
             setIsChecking(false);
-            setIsEligible(true);
+            setIsEligible({
+                start: false,
+                eligible: true,
+                notEligible: false
+            });
+        }, 2000);
+    };
+
+    useEffect(() => {
+        if (isEligible.eligible) {
             toast({
                 title: "Eligibility Confirmed!",
                 description: "Congratulations! You are eligible for our business loan program.",
                 variant: "default",
             });
-        }, 2000);
-    };
+        } else if (isEligible.notEligible) {
+            toast({
+                title: "Eligibility Check Failed",
+                description: "Unfortunately, you do not meet the eligibility criteria for our business loan program at this time.",
+                variant: "destructive",
+            });
+        }
+    }, [isEligible, toast]);
 
     const handleRedirect = () => {
         window.open('https://partnersplus.mihuru.com/', '_blank');
@@ -59,79 +81,92 @@ export const EligibilitySection: React.FC = () => {
                 </p>
             </div>
 
-            {!isEligible ? (
-                <form onSubmit={handleSubmit} className="space-y-4">
-                    <div className="space-y-2">
-                        <Label htmlFor="name" className="text-white">Travel Agent Name</Label>
-                        <Input
-                            id="name"
-                            name="name"
-                            value={formData.name}
-                            onChange={handleChange}
-                            placeholder="Your full name"
-                            required
-                            className="bg-white/20 border-white/30 text-white placeholder:text-white/50"
-                        />
+            {isEligible.start ? (
+                <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+                        <div className="space-y-2">
+                            <Label htmlFor="firstName" className="text-white">First Name</Label>
+                            <Input
+                                id="firstName"
+                                {...register("firstName")}
+                                placeholder="Your full name"
+                                className="bg-white/20 border-white/30 text-white placeholder:text-white/50"
+                            />
+                            {errors.firstName && <p className="text-red-500 text-sm">{errors.firstName.message}</p>}
+                        </div>
+
+                        <div className="space-y-2">
+                            <Label htmlFor="lastName" className="text-white">Last Name</Label>
+                            <Input
+                                id="lastName"
+                                {...register("lastName")}
+                                placeholder="Your full name"
+                                className="bg-white/20 border-white/30 text-white placeholder:text-white/50"
+                            />
+                            {errors.lastName && <p className="text-red-500 text-sm">{errors.lastName.message}</p>}
+                        </div>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div className="space-y-2">
-                            <Label htmlFor="phone" className="text-white">Contact Number</Label>
+                            <Label htmlFor="contactNumber" className="text-white">Contact Number</Label>
                             <Input
-                                id="phone"
-                                name="phone"
-                                value={formData.phone}
-                                onChange={handleChange}
+                                id="contactNumber"
+                                {...register("contactNumber")}
                                 placeholder="Your phone number"
-                                required
                                 className="bg-white/20 border-white/30 text-white placeholder:text-white/50"
                             />
+                            {errors.contactNumber && <p className="text-red-500 text-sm">{errors.contactNumber.message}</p>}
                         </div>
                         <div className="space-y-2">
                             <Label htmlFor="email" className="text-white">Email ID</Label>
                             <Input
                                 id="email"
-                                name="email"
                                 type="email"
-                                value={formData.email}
-                                onChange={handleChange}
+                                {...register("email")}
                                 placeholder="Your email"
-                                required
                                 className="bg-white/20 border-white/30 text-white placeholder:text-white/50"
                             />
+                            {errors.email && <p className="text-red-500 text-sm">{errors.email.message}</p>}
                         </div>
                     </div>
 
                     <div className="space-y-2">
-                        <Label htmlFor="agencyName" className="text-white">Travel Agency Name</Label>
+                        <Label htmlFor="travelAgencyName" className="text-white">Travel Agency Name</Label>
                         <Input
-                            id="agencyName"
-                            name="agencyName"
-                            value={formData.agencyName}
-                            onChange={handleChange}
+                            id="travelAgencyName"
+                            {...register("travelAgencyName")}
                             placeholder="Your travel agency name"
-                            required
                             className="bg-white/20 border-white/30 text-white placeholder:text-white/50"
                         />
+                        {errors.travelAgencyName && <p className="text-red-500 text-sm">{errors.travelAgencyName.message}</p>}
                     </div>
 
                     <div className="space-y-2">
                         <Label htmlFor="loanAmount" className="text-white">Required Loan Amount</Label>
                         <Input
                             id="loanAmount"
-                            name="loanAmount"
-                            value={formData.loanAmount}
-                            onChange={handleChange}
+                            {...register("loanAmount")}
                             placeholder="Enter amount in Rs."
-                            required
                             className="bg-white/20 border-white/30 text-white placeholder:text-white/50"
                         />
+                        {errors.loanAmount && <p className="text-red-500 text-sm">{errors.loanAmount.message}</p>}
                     </div>
 
-                    <div className="space-y-2">
-                        <Checkbox id="terms" />
-                        <label htmlFor="terms">I agree to the <a href="https://www.mihuru.com/privacy/terms" target='_blank'><span className='text-mihuru-gold'>terms and conditions</span></a></label>
+                    <div className="flex items-center space-x-2">
+                        <Controller
+                            name="termsAccepted"
+                            control={control}
+                            render={({ field }) => (
+                                <Checkbox id="termsAccepted" checked={field.value} onCheckedChange={field.onChange} />
+                            )}
+                        />
+                        <label htmlFor="termsAccepted" className="text-white text-sm">
+                            I agree to the <a href="https://www.mihuru.com/privacy/terms" target='_blank' className='text-mihuru-gold'>terms and conditions</a>
+                        </label>
                     </div>
+                    {errors.termsAccepted && <p className="text-red-500 text-sm">{errors.termsAccepted.message}</p>}
 
                     <Button
                         type="submit"
@@ -141,7 +176,7 @@ export const EligibilitySection: React.FC = () => {
                         {isChecking ? "Checking Eligibility..." : "Check My Eligibility"}
                     </Button>
                 </form>
-            ) : (
+            ) : isEligible.eligible ? (
                 <div className="text-center space-y-6">
                     <div className="bg-green-500/20 border border-green-500/30 rounded-lg p-6">
                         <CheckCircle className="h-16 w-16 text-green-400 mx-auto mb-4" />
@@ -157,6 +192,23 @@ export const EligibilitySection: React.FC = () => {
                     >
                         Continue Application
                         <ExternalLink className="h-5 w-5" />
+                    </Button>
+                </div>
+            ) : (
+                <div className="text-center space-y-6">
+                    <div className="bg-red-500/20 border border-red-500/30 rounded-lg p-6">
+                        <CheckCircle className="h-16 w-16 text-red-400 mx-auto mb-4" />
+                        <h4 className="text-xl font-bold text-red-400 mb-2">Not Eligible</h4>
+                        <p className="text-white/80">
+                            Unfortunately, you do not meet the eligibility criteria for our business loan program at this time.
+                        </p>
+                    </div>
+
+                    <Button
+                        onClick={() => setIsEligible({ start: true, eligible: false, notEligible: false })}
+                        className="w-full bg-mihuru-gold hover:bg-mihuru-gold-light text-mihuru-dark font-bold py-3 text-lg transition-all duration-300"
+                    >
+                        Request for a Callback
                     </Button>
                 </div>
             )}

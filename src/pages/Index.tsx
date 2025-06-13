@@ -9,14 +9,18 @@ import { EligibilitySection } from '@/components/EligibilitySection';
 import { TestimonialsSection } from '@/components/TestimonialsSection';
 import { FAQSection } from '@/components/FAQSection';
 import { Footer } from '@/components/Footer';
+import Counter from '@/components/Counter';
+import Slider from '@/components/Slider';
 
 const Index = () => {
     return (
         <div className="min-h-screen bg-mihuru-dark text-white overflow-hidden">
             <Header />
+            <Counter />
             <HeroSection />
             <RewardsSection />
             <StepsSection />
+            <Slider />
             <BenefitsSection />
 
             <div id="application-form" className="py-16 px-4 bg-gradient-to-b from-mihuru-dark/95 to-mihuru-dark">
@@ -34,7 +38,7 @@ const Index = () => {
             <div className='bg-mihuru-dark/90 border-t border-b border-white/10 py-10 px-4 flex flex-col items-center justify-center'>
                 <div className='block mx-auto my-0'>
                     <div className='max-w-20 max-h-20 bg-white rounded-lg'>
-                        <img className='w-full h-full' src="/lovable-uploads/taai-logo.png" alt="taai-logo" />
+                        <img className='w-full h-full' src="https://itraveleoblogdiag865.blob.core.windows.net/websiteimages/assets/images/taai-logo.png" alt="taai-logo" />
                     </div>
                 </div>
                 <div className='text-center mt-4'>
