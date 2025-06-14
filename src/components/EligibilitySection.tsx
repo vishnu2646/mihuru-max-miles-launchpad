@@ -25,6 +25,8 @@ export const EligibilitySection: React.FC = () => {
 
     const termaConditionUrl = import.meta.env.VITE_FRONTEND_URL;
 
+    const bitrix24Url = import.meta.env.VITE_BITRIX24_URL;
+
     const [isChecking, setIsChecking] = useState(false);
 
     const [validityCheckData, setValidityCheckData] = useState<FormValues>({});
@@ -50,6 +52,22 @@ export const EligibilitySection: React.FC = () => {
         resolver: zodResolver(loanApplicationSchema),
     });
 
+    useEffect(() => {
+        if (isEligible.eligible) {
+            toast({
+                title: "Eligibility Confirmed!",
+                description: "Congratulations! You are eligible for our business loan program.",
+                variant: "default",
+            });
+        } else if (isEligible.notEligible) {
+            toast({
+                title: "Eligibility Check Failed",
+                description: "Unfortunately, you do not meet the eligibility criteria for our business loan program at this time.",
+                variant: "destructive",
+            });
+        }
+    }, [isEligible, toast]);
+
     const onSubmit = async (data: FormValues) => {
         setValidityCheckData(data);
 
@@ -68,7 +86,6 @@ export const EligibilitySection: React.FC = () => {
             AgencyName: data.travelAgencyName,
             LoanAmount: data.loanAmount
         }
-
 
         try {
             const response = await axios.post(`${apiUrl}businessloan/pre-eligibility/sms`, formData);
@@ -109,7 +126,6 @@ export const EligibilitySection: React.FC = () => {
             const response = await axios.post(`${apiUrl}businessloan/pre-eligibility/check`, otpData);
             if(response) {
                 setIsChecking(false);
-                console.log(response);
                 if(response.data.data === "Approved") {
                     setIsEligible({
                         start: false,
@@ -145,24 +161,49 @@ export const EligibilitySection: React.FC = () => {
                 eligible: false,
                 notEligible: true,
             });
-        }
-    }
 
-    useEffect(() => {
-        if (isEligible.eligible) {
             toast({
-                title: "Eligibility Confirmed!",
-                description: "Congratulations! You are eligible for our business loan program.",
-                variant: "default",
-            });
-        } else if (isEligible.notEligible) {
-            toast({
-                title: "Eligibility Check Failed",
-                description: "Unfortunately, you do not meet the eligibility criteria for our business loan program at this time.",
+                title: "Something went wrong.",
+                description: "Please try again later.",
                 variant: "destructive",
             });
         }
-    }, [isEligible, toast]);
+    }
+
+    const handleRequestCallback = () => {
+        setIsEligible({
+            start: true,
+            otp: false,
+            eligible: false,
+            notEligible: false
+        });
+        setOtp('');
+
+        let tomorrow = new Date();
+        tomorrow.setDate(tomorrow.getDate() + 1);
+
+        const leadData = {
+            TITLE : `Callback Request from ${validityCheckData.firstName} ${validityCheckData.lastName} - ${validityCheckData.contactNumber}`,
+            DESCRIPTION : "A callback request has been made for a business loan eligibility check.",
+            RESPONSIBLE_ID : 1,
+            DEADLINE : tomorrow.toISOString().split('T')[0],
+        }
+
+        try {
+            const response = axios.post(`${bitrix24Url}/rest/1/oz4dmru3zhc2xc0l/task.item.add`, { fields: leadData });
+            if (response) {
+                toast({
+                    title: "Callback Request Sent",
+                    description: "We will follow up with you soon.",
+                    variant: "default",
+                });
+            }
+        } catch (error) {
+            console.log(error);
+        }
+
+        setValidityCheckData({});
+    }
 
     const handleRedirect = () => {
         window.open('https://partnersplus.mihuru.com/', '_blank');
@@ -320,7 +361,7 @@ export const EligibilitySection: React.FC = () => {
                     </div>
 
                     <Button
-                        onClick={() => setIsEligible({ start: true, otp: false, eligible: false, notEligible: false })}
+                        onClick={handleRequestCallback}
                         className="w-full bg-mihuru-gold hover:bg-mihuru-gold-light text-mihuru-dark font-bold py-3 text-lg transition-all duration-300"
                     >
                         Request for a Callback
